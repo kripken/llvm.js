@@ -18,5 +18,7 @@ You may also hit errors on all-targets including Hexagon stuff, not sure why. To
 
 Then copy from the bin/ directory the relevant bitcode files to here, with suffix .bc
 
+TODO: automate all preceding steps
+
 Run doit.sh
 
