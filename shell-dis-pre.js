@@ -1,6 +1,5 @@
 
 var llvmDis = function(bitcode) {
-
   var Module = {
     arguments: ['llvm.bc'],
     preRun: function() {

@@ -4,9 +4,15 @@
 <script src="llvm-dis.js"></script>
 <script>
   function process(input) {
-    var bitcode = llvmAs(input);
-    var output = llvmDis(bitcode);
-    return output;
+    try {
+      return llvmDis(llvmAs(input));
+    } catch (e) {
+      if (typeof e == 'string') {
+        return 'ERROR: ' + e;
+      } else {
+        throw e;
+      }
+    }
   }
 </script>
 <textarea id="the_input" cols=50 rows=30>
