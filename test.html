@@ -37,7 +37,46 @@ declare i32 @printf(i8*, ...)
 <textarea id="the_output" cols=50 rows=30>
 </textarea>
 <hr>
-<input value="process" type="button" onclick="getElementById('the_output').value = process(getElementById('the_input').value)">
+
+<textarea id="the_code_output" cols=50 rows=5>
+</textarea>
+<script>
+  // emscripten stuff
+  arguments = ['', 'hello_world.ll'];
+
+  // For compiler
+  var compilerOutput = '';
+  print = function(x) {
+    compilerOutput += x;
+  };
+
+  function execute() {
+    compile(document.getElementById('the_output').value);
+    eval(compilerOutput);
+    codeOutputElement.innerHTML += '<br>';
+  }
+
+  // For generated code
+  var codeOutputElement = document.getElementById('the_code_output');
+  var Module = {
+    print: function(x) {
+      codeOutputElement.innerHTML += x;
+    }
+  };
+</script>
+<script src="emscripten/compiler.js">
+</script>
+<script>
+  function doItAll() {
+    var output = process(document.getElementById('the_input').value);
+    document.getElementById('the_output').value = output;
+    if (output && output[0] != 'E') { // E for ERROR
+      execute();
+    }
+  }
+</script>
+
+<input value="process" type="button" onclick="doItAll()">
 </body>
 </html>
 
