@@ -42,7 +42,7 @@ declare i32 @printf(i8*, ...)
 </textarea>
 <script>
   // emscripten stuff
-  arguments = ['', 'hello_world.ll'];
+  arguments = [];
 
   // For compiler
   var compilerOutput = '';
@@ -64,7 +64,7 @@ declare i32 @printf(i8*, ...)
     }
   };
 </script>
-<script src="emscripten/compiler.js">
+<script src="compiler.js">
 </script>
 <script>
   function doItAll() {
