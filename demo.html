@@ -18,7 +18,7 @@
       return llvmDis(llvmAs(input));
     } catch (e) {
       if (typeof e == 'string') {
-        return 'ERROR: ' + e;
+        return 'Error in compilation: ' + e;
       } else {
         throw e;
       }
@@ -64,7 +64,12 @@ declare i32 @printf(i8*, ...)
     Module.print = function(x) {
       outputElement.value += x;
     };
-    eval(compilerOutput);
+    try {
+      eval(compilerOutput);
+    } catch(e) {
+      outputElement.style.backgroundColor = '#ffe0e0';
+      Module.print('Error in execution: ' + e); // DEBUGGING + '|' + compilerOutput);
+    }
     Module.print = oldPrint;
   }
 
@@ -76,7 +81,7 @@ declare i32 @printf(i8*, ...)
 <script>
   function doItAll() {
     var ll = process(document.getElementById('the_input').value);
-    if (ll && ll[0] != 'E') { // E for ERROR
+    if (ll && ll[0] != 'E') {
       outputElement.style.backgroundColor = '#eeffee';
       execute(ll);
     } else {
