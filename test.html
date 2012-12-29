@@ -20,26 +20,21 @@
 target datalayout = "e-p:32:32:32-i1:8:8-i8:8:8-i16:16:16-i32:32:32-i64:32:64-f32:32:32-f64:32:64-v64:64:64-v128:128:128-a0:0:64-f80:32:32-n8:16:32-S128"
 target triple = "i386-pc-linux-gnu"
 
-@.str = private unnamed_addr constant [15 x i8] c"hello, world!\0A\00", align 1 ; [#uses=1 type=[15 x i8]*]
+@.str = private unnamed_addr constant [15 x i8] c"hello, world!\0A\00", align 1
 
-; [#uses=0]
 define i32 @main() {
 entry:
-  %retval = alloca i32, align 4                   ; [#uses=1 type=i32*]
+  %retval = alloca i32, align 4
   store i32 0, i32* %retval
-  %call = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([15 x i8]* @.str, i32 0, i32 0)) ; [#uses=0 type=i32]
+  %call = call i32 (i8*, ...)* @printf(i8* getelementptr inbounds ([15 x i8]* @.str, i32 0, i32 0))
   ret i32 1
 }
 
-; [#uses=1]
 declare i32 @printf(i8*, ...)
 </textarea>
 <textarea id="the_output" cols=50 rows=30>
 </textarea>
 <hr>
-
-<textarea id="the_code_output" cols=50 rows=5>
-</textarea>
 <script>
   // emscripten stuff
   arguments = [];
@@ -50,27 +45,31 @@ declare i32 @printf(i8*, ...)
     compilerOutput += x;
   };
 
-  function execute() {
-    compile(document.getElementById('the_output').value);
+  var outputElement = document.getElementById('the_output');
+  function execute(ll) {
+    compile(ll);
 
+    outputElement.value = '';
+    var oldPrint = Module.print;
     Module.print = function(x) {
-      codeOutputElement.innerHTML += x;
+      outputElement.value += x;
     };
     eval(compilerOutput);
+    Module.print = oldPrint;
   }
 
   // For generated code
-  var codeOutputElement = document.getElementById('the_code_output');
   var Module = {};
 </script>
 <script src="compiler.js">
 </script>
 <script>
   function doItAll() {
-    var output = process(document.getElementById('the_input').value);
-    document.getElementById('the_output').value = output;
-    if (output && output[0] != 'E') { // E for ERROR
-      execute();
+    var ll = process(document.getElementById('the_input').value);
+    if (ll && ll[0] != 'E') { // E for ERROR
+      execute(ll);
+    } else {
+      outputElement.value = ll; // error message
     }
   }
 </script>
