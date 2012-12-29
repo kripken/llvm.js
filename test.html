@@ -52,17 +52,16 @@ declare i32 @printf(i8*, ...)
 
   function execute() {
     compile(document.getElementById('the_output').value);
+
+    Module.print = function(x) {
+      codeOutputElement.innerHTML += x;
+    };
     eval(compilerOutput);
-    codeOutputElement.innerHTML += '<br>';
   }
 
   // For generated code
   var codeOutputElement = document.getElementById('the_code_output');
-  var Module = {
-    print: function(x) {
-      codeOutputElement.innerHTML += x;
-    }
-  };
+  var Module = {};
 </script>
 <script src="compiler.js">
 </script>
