@@ -8,7 +8,7 @@
   This is a demo of compiling and running <a href="http://llvm.org">LLVM</a> assembly entirely clientside, that is, in JavaScript.
 </p>
 <p>
-  Press the button to see it compile and run a tiny "hello world" program. You can also try modifying the LLVM assembly and pressing it again - note though that <a href="http://llvm.org/docs/LangRef.html">LLVM assembly</a> is typed, so if you add characters to the string for example, you will need to adjust its length, both where it is defined and where it is used. If you get errors they will show up in the output area.
+  Press the button to see it compile and run a tiny "hello world" program. You can also try modifying the LLVM assembly and pressing the button again - note though that <a href="http://llvm.org/docs/LangRef.html">LLVM assembly</a> is typed, so if you add characters to the string for example, you will need to adjust its length, both where it is defined and where it is used (otherwise you will get errors, which will show up in the output area).
 </p>
 <script src="llvm-as.js"></script>
 <script src="llvm-dis.js"></script>
@@ -26,10 +26,10 @@
   }
 </script>
 <hr>
-<textarea id="the_input" cols=80 rows=13 style="background-color: #eeeeff; border: 1px solid black; margin-top: 0.3em; margin-bottom: 0.3em">
+<textarea id="the_input" cols=90 rows=13 style="background-color: #eeeeff; border: 1px solid black; margin-top: 0.3em; margin-bottom: 0.3em">
 target triple = "i386-pc-linux-gnu"
 
-@.str = private constant [15 x i8] c"hello, world!\0A\00", align 1
+@.str = private constant [15 x i8] c"hello, world!\0A\00"
 
 define i32 @main() {
 entry:
@@ -41,7 +41,7 @@ entry:
 declare i32 @printf(i8*, ...)
 </textarea>
 <br>
-<textarea id="the_output" cols=60 rows=2 style="background-color: #eeffee; border: 1px solid black; margin-bottom: 0.6em">
+<textarea id="the_output" cols=90 rows=5 style="border: 1px solid black; margin-bottom: 0.6em">
 </textarea>
 <br>
 <script>
@@ -77,8 +77,10 @@ declare i32 @printf(i8*, ...)
   function doItAll() {
     var ll = process(document.getElementById('the_input').value);
     if (ll && ll[0] != 'E') { // E for ERROR
+      outputElement.style.backgroundColor = '#eeffee';
       execute(ll);
     } else {
+      outputElement.style.backgroundColor = '#ffe0e0';
       outputElement.value = ll; // error message
     }
   }
