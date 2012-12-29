@@ -47,6 +47,7 @@ declare i32 @printf(i8*, ...)
 
   var outputElement = document.getElementById('the_output');
   function execute(ll) {
+    compilerOutput = '';
     compile(ll);
 
     outputElement.value = '';
