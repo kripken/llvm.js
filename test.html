@@ -76,6 +76,22 @@ declare i32 @printf(i8*, ...)
 </script>
 
 <input value="process" type="button" onclick="doItAll()">
+<hr>
+<p>
+  This is a demo of compiling <a href="http://llvm.org">LLVM</a> assembly into JavaScript, entirely in your browser.
+</p>
+<p>
+  It works by using parts of the LLVM toolchain (llvm-dis and llvm-as), compiled by <a href="http://emscripten.org/">emscripten</a> from C++ to JavaScript, to check the assembly for errors and pretty-print it. Then the emscripten compiler (originally written in JavaScript, but ported from the normal batch/shell mode to the browser environment) is run on the output, and the code executed directly.
+</p>
+<p>
+  Press the button to see it print "hello, world!" in the output area on the right. Try modifying the LLVM assembly and pressing it again. Note that <a href="http://llvm.org/docs/LangRef.html">LLVM assembly</a> is typed, so if you add characters to the string for example, you will need to adjust its length, both where it is defined and where it is used. If you get errors they will show up in the output area.
+</p>
+<p>
+  Note that the generated code is not optimized at all, so benchmarking is pointless. If you want to benchmark, run emscripten normally with <code>-O2</code>. Also, note that this demo has hardly been tested and glues together several codebases in ways they were not originally intended, there might be things that do not work.
+</p>
+<p>
+  This demo was done as a fun hacking project over a holiday vacation.
+</p>
 </body>
 </html>
 
