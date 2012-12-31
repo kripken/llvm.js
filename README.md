@@ -3,6 +3,8 @@ llvm.js
 
 LLVM compiled to JavaScript using Emscripten
 
+TODO: Support 'indexize' operation done in emscripten.py
+
 
 Generating the Bitcode
 ----------------------
