@@ -97,7 +97,7 @@ declare i32 @printf(i8*, ...)
   This demo works by using parts of the LLVM toolchain (llvm-dis and llvm-as), compiled by <a href="http://emscripten.org/">emscripten</a> from C++ to JavaScript, to check the assembly for errors and pretty-print it. Then the emscripten compiler (originally written in JavaScript, but ported from the normal batch/shell mode to the browser environment) is run on the output, and the code executed directly.
 </p>
 <p>
-  Note that the generated code is not optimized at all, so benchmarking is pointless. If you want to benchmark, run emscripten normally with <code>-O2</code>. Also, note that this demo has hardly been tested and glues together several codebases in ways they were not originally intended, there might be things that do not work.
+  Note that the generated code is not optimized at all, so benchmarking is pointless. If you want to benchmark, run emscripten normally with <code>-O2</code>. Also, note that this demo has hardly been tested and glues together several codebases in ways they were not originally intended, there might be things that do not work. Compilation speed has also not been optimized at all.
 </p>
 <p>
   This demo was done as a fun hacking project over a holiday vacation.
