@@ -62,7 +62,7 @@ declare i32 @printf(i8*, ...)
     outputElement.value = '';
     var oldPrint = Module.print;
     Module.print = function(x) {
-      outputElement.value += x;
+      outputElement.value += x + '\n';
     };
     try {
       eval(compilerOutput);
